@@ -22,18 +22,32 @@ public class ShibaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_agent.remainingDistance < 1f && _agent.remainingDistance !=0)
+        if (_agent.remainingDistance < 1f && _agent.remainingDistance != 0)
         {
-        _audioSource.Play();
-        _animator.SetBool("isRunning", false);
-        _agent.isStopped = true;        
+            if (!_audioSource.isPlaying)
+            {
+                _audioSource.Play();
+            }
+            _animator.SetBool("isRunning", false);
+            _agent.isStopped = true;
         }
         else
         {
-        _agent.isStopped = false;        
-        _animator.SetBool("isRunning", true);        
-            
+            _agent.isStopped = false;
+            _animator.SetBool("isRunning", true);
+
         }
         _agent.SetDestination(_destination.position);
+    }
+    public void ToggleHeadPat()
+    {
+        if(_animator.GetBool("isPatted"))
+        {
+            _animator.SetBool("isPatted", false);
+        }
+        else{
+            _animator.SetBool("isPatted", true);
+
+        }
     }
 }
